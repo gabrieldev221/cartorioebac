@@ -78,12 +78,12 @@ int consulta()
       FILE * file;
       file = fopen(cpf,"r");
       
-      if(file==NULL);
+      if(file==NULL)
       {
-       ("Não foi possivel abrir o arquivo desejado , não localizado !.");
-	  }
-	  
-	  while(fgets(conteudo, 200, file) != NULL);
+        printf("Não foi possivel abrir o arquivo desejado , não localizado !.\n\n");
+      }
+      
+	  while(fgets(conteudo, 200, file) != NULL)
 	  {
 	    printf("\nEssas são as informações do usuario :");
 	    printf("%s", conteudo);
@@ -91,6 +91,7 @@ int consulta()
 	    
 	  }
 	  
+	  fclose(file);
 	  system("pause");
 }
 
@@ -102,78 +103,104 @@ int deletar()
 
     printf("Digite o CPF do usúario a ser deletado :");
 	scanf("%s",cpf);
-	
-	remove(cpf);
-	
-	FILE *file;
+	FILE *file;	
 	file = fopen(cpf,"r");
 	
-	if( file==NULL);
+	if(file == NULL)
 	{
-		printf("Usúario não encontrado no sistema!.\n");
+		printf("O usuário não se encontra no sistema!.\n");
 		system("pause");
-		
 	}
-		
-}
+	else
+	{
+		fclose(file);
+		remove(cpf);
+		FILE *file;	
+		file = fopen(cpf,"r");
+		if(file == NULL)
+		{
+			printf("Usuário deletado com sucesso!.\n");
+			system("pause");
+		}
 
+}
+     fclose(file);
+}
+    
+      
 int main ()
 {
 	int opcao=0;
 	int laco=1;
-	
-	for(laco=1;laco=1;)
-	{
-	
-	system("cls");
-	
-	setlocale (LC_ALL, "Portuguese");
-	
+	char senhadigitada[10]="a";
+	int comparacao;
+	 
+	 
 	printf( "### CENTRAL DE RESGISTROS EBAC ###\n\n\n");
-	printf("\tMENU \n\n");
-	printf("\t1 - Registrar Nomes\n ");
-	printf("\t2 -Consultar Nomes \n");
-	printf("\t3 - Deletar Nomes \n\n\n");
-	printf("\t4 - Sair do sistema \n\n");
-	printf("\ - Opção :");//fim do menu
+	printf("login de administrador!\n\nDigite a sua senha:");
+	scanf("%s",senhadigitada);
 	
-	scanf("%d", &opcao); //armazenando a escolha do usuario
+	comparacao = strcmp(senhadigitada,"admin");
 	
-	system("cls");//inicio da seleção
+	if(comparacao == 0)
 	
-	switch(opcao)
-	{
-		case 1: 
+		{
+	
+	    system ("cls");
+    	 for(laco=1;laco=1;)
+     	{
+	
+         	system("cls");
+	
+         	setlocale (LC_ALL, "Portuguese");
+	
+         	printf( "### CENTRAL DE RESGISTROS EBAC ###\n\n\n");
+          	printf("\tMENU \n\n");
+        	printf("\t1 - Registrar Nomes\n ");
+         	printf("\t2 -Consultar Nomes \n");
+         	printf("\t3 - Deletar Nomes \n");
+            printf("\t4 - Sair Do Sistema !\n\n");
+        	printf("\t - Opção :");//fim do menu
+	
+	        scanf("%d", &opcao); //armazenando a escolha do usuario
+	
+          	system("cls");//inicio da seleção
+	
+        	switch(opcao)
+    	{
+		    case 1: 
 		
-		registro();
-		break;
+		    registro();
+	     	break;
 		
-		case 2:
+	     	case 2:
 			 
-	    consulta();
-	    break;
-	    
-	    case 3:
+	        consulta();
+	        break;
+	     
+	       case 3:
 	    	
-		deletar();
-		break;
-		
-		case 4:
-		printf("Obrigado por ultilizar o sistema!!\n\n");
-		return 0;
-		break;
-		
-		default:
+	    	deletar();
+	     	break;
+		    
+	    	case 4:
+	    		
+	    	printf(" Obrigado por ultilizar o sistema! \n");
+            return 0;
+		    break;
+				
+	    	default:
 			
-		printf("Essa opção não está disponivel!\n");
-		system("pause");
-		break;
-			
-			
+	    	printf("Essa opção não está disponivel!\n");
+	    	system("pause");
+	        break;
 		
-	}
-	
-	
+     	}
+
+}
 	}//fim da seleção
+	
+	else
+	  printf("Senha incorreta !");
 	}
 		
